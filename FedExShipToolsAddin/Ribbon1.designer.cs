@@ -34,6 +34,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Microsoft.Office.Tools.Ribbon.RibbonDialogLauncher ribbonDialogLauncherImpl1 = this.Factory.CreateRibbonDialogLauncher();
             Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl1 = this.Factory.CreateRibbonDropDownItem();
             Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl2 = this.Factory.CreateRibbonDropDownItem();
             Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl3 = this.Factory.CreateRibbonDropDownItem();
@@ -59,23 +60,25 @@
             this.grpInsert = this.Factory.CreateRibbonGroup();
             this.box1 = this.Factory.CreateRibbonBox();
             this.txtOriginZip = this.Factory.CreateRibbonEditBox();
-            this.txtOriginCounty = this.Factory.CreateRibbonEditBox();
+            this.txtOriginCountry = this.Factory.CreateRibbonEditBox();
             this.box3 = this.Factory.CreateRibbonBox();
             this.txtDestinationZip = this.Factory.CreateRibbonEditBox();
             this.txtDestinationCountry = this.Factory.CreateRibbonEditBox();
-            this.btnInsertRateSingle = this.Factory.CreateRibbonButton();
             this.grpPackageInfo = this.Factory.CreateRibbonGroup();
             this.box2 = this.Factory.CreateRibbonBox();
             this.selectServiceType = this.Factory.CreateRibbonDropDown();
             this.box4 = this.Factory.CreateRibbonBox();
             this.txtPackageWeight = this.Factory.CreateRibbonEditBox();
             this.grpSetRanges = this.Factory.CreateRibbonGroup();
+            this.grpAutomate = this.Factory.CreateRibbonGroup();
+            this.box5 = this.Factory.CreateRibbonBox();
+            this.btnInsertRateSingle = this.Factory.CreateRibbonButton();
             this.btnSetOriginRange = this.Factory.CreateRibbonButton();
             this.btnSetDestinationRange = this.Factory.CreateRibbonButton();
             this.btnSetOutputRange = this.Factory.CreateRibbonButton();
-            this.grpAutomate = this.Factory.CreateRibbonGroup();
             this.btnInsetRateMatrix = this.Factory.CreateRibbonButton();
             this.btnInsertDistanceMatrix = this.Factory.CreateRibbonButton();
+            this.bgwInsertMatrix = new System.ComponentModel.BackgroundWorker();
             this.tabShipTools.SuspendLayout();
             this.grpInsert.SuspendLayout();
             this.box1.SuspendLayout();
@@ -85,6 +88,7 @@
             this.box4.SuspendLayout();
             this.grpSetRanges.SuspendLayout();
             this.grpAutomate.SuspendLayout();
+            this.box5.SuspendLayout();
             // 
             // tabShipTools
             // 
@@ -97,16 +101,17 @@
             // 
             // grpInsert
             // 
+            this.grpInsert.DialogLauncher = ribbonDialogLauncherImpl1;
             this.grpInsert.Items.Add(this.box1);
             this.grpInsert.Items.Add(this.box3);
-            this.grpInsert.Items.Add(this.btnInsertRateSingle);
+            this.grpInsert.Items.Add(this.box5);
             this.grpInsert.Label = "Quick Insert";
             this.grpInsert.Name = "grpInsert";
             // 
             // box1
             // 
             this.box1.Items.Add(this.txtOriginZip);
-            this.box1.Items.Add(this.txtOriginCounty);
+            this.box1.Items.Add(this.txtOriginCountry);
             this.box1.Name = "box1";
             // 
             // txtOriginZip
@@ -115,13 +120,13 @@
             this.txtOriginZip.Name = "txtOriginZip";
             this.txtOriginZip.Text = null;
             // 
-            // txtOriginCounty
+            // txtOriginCountry
             // 
-            this.txtOriginCounty.Label = "editBox1";
-            this.txtOriginCounty.MaxLength = 2;
-            this.txtOriginCounty.Name = "txtOriginCounty";
-            this.txtOriginCounty.ShowLabel = false;
-            this.txtOriginCounty.Text = "US";
+            this.txtOriginCountry.Label = "editBox1";
+            this.txtOriginCountry.MaxLength = 2;
+            this.txtOriginCountry.Name = "txtOriginCountry";
+            this.txtOriginCountry.ShowLabel = false;
+            this.txtOriginCountry.Text = "US";
             // 
             // box3
             // 
@@ -142,14 +147,6 @@
             this.txtDestinationCountry.Name = "txtDestinationCountry";
             this.txtDestinationCountry.ShowLabel = false;
             this.txtDestinationCountry.Text = "US";
-            // 
-            // btnInsertRateSingle
-            // 
-            this.btnInsertRateSingle.Image = global::FedExShipToolsAddin.Properties.Resources.mail;
-            this.btnInsertRateSingle.Label = "Insert Rate Estimate";
-            this.btnInsertRateSingle.Name = "btnInsertRateSingle";
-            this.btnInsertRateSingle.ShowImage = true;
-            this.btnInsertRateSingle.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnInsertRateSingle_Click);
             // 
             // grpPackageInfo
             // 
@@ -230,6 +227,26 @@
             this.grpSetRanges.Label = "Set Ranges";
             this.grpSetRanges.Name = "grpSetRanges";
             // 
+            // grpAutomate
+            // 
+            this.grpAutomate.Items.Add(this.btnInsetRateMatrix);
+            this.grpAutomate.Items.Add(this.btnInsertDistanceMatrix);
+            this.grpAutomate.Label = "AutoFill";
+            this.grpAutomate.Name = "grpAutomate";
+            // 
+            // box5
+            // 
+            this.box5.Items.Add(this.btnInsertRateSingle);
+            this.box5.Name = "box5";
+            // 
+            // btnInsertRateSingle
+            // 
+            this.btnInsertRateSingle.Image = global::FedExShipToolsAddin.Properties.Resources.mail;
+            this.btnInsertRateSingle.Label = "Insert Rate Estimate";
+            this.btnInsertRateSingle.Name = "btnInsertRateSingle";
+            this.btnInsertRateSingle.ShowImage = true;
+            this.btnInsertRateSingle.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnInsertRateSingle_Click);
+            // 
             // btnSetOriginRange
             // 
             this.btnSetOriginRange.Image = global::FedExShipToolsAddin.Properties.Resources.ui_select_range_icon;
@@ -254,13 +271,6 @@
             this.btnSetOutputRange.ShowImage = true;
             this.btnSetOutputRange.Visible = false;
             this.btnSetOutputRange.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSetOutputRange_Click);
-            // 
-            // grpAutomate
-            // 
-            this.grpAutomate.Items.Add(this.btnInsetRateMatrix);
-            this.grpAutomate.Items.Add(this.btnInsertDistanceMatrix);
-            this.grpAutomate.Label = "AutoFill";
-            this.grpAutomate.Name = "grpAutomate";
             // 
             // btnInsetRateMatrix
             // 
@@ -302,6 +312,8 @@
             this.grpSetRanges.PerformLayout();
             this.grpAutomate.ResumeLayout(false);
             this.grpAutomate.PerformLayout();
+            this.box5.ResumeLayout(false);
+            this.box5.PerformLayout();
 
         }
 
@@ -319,7 +331,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnInsetRateMatrix;
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox txtOriginZip;
         internal Microsoft.Office.Tools.Ribbon.RibbonBox box1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox txtOriginCounty;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox txtOriginCountry;
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox txtDestinationCountry;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnInsertDistanceMatrix;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup grpPackageInfo;
@@ -328,6 +340,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonDropDown selectServiceType;
         internal Microsoft.Office.Tools.Ribbon.RibbonBox box3;
         internal Microsoft.Office.Tools.Ribbon.RibbonBox box4;
+        internal Microsoft.Office.Tools.Ribbon.RibbonBox box5;
+        private System.ComponentModel.BackgroundWorker bgwInsertMatrix;
     }
 
     partial class ThisRibbonCollection
